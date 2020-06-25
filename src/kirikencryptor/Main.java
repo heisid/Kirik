@@ -67,7 +67,7 @@ public class Main {
             if (outFile.exists()) {
                 System.out.println(outFileName + " already exists. Overwrite? [Y/N]");
                 Scanner confirm = new Scanner(System.in);
-                if (!"y".toLowerCase().equals(confirm.next())) {
+                if (!"y".equals(confirm.next().toLowerCase())) {
                     System.exit(0);
                 }
             }
