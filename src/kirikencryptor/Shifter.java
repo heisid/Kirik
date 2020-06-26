@@ -6,6 +6,7 @@ public class Shifter {
     private static final int RANGE = (END_CHAR - START_CHAR + 1);
     private final String mode;
     private final String data;
+    private final int dataLength;
     private final char key;
     private String result;
 
@@ -13,6 +14,7 @@ public class Shifter {
         this.mode = mode;
         this.key = key;
         this.data = data;
+        this.dataLength = data.length();
     }
 
     // Reminder for myself: % in java is different with python
@@ -22,9 +24,8 @@ public class Shifter {
     }
 
     private void encrypt() {
-        int length = this.data.length();
-        char[] resultArray = new char[length];
-        for (int i = 0; i < length; i++) {
+        char[] resultArray = new char[this.dataLength];
+        for (int i = 0; i < this.dataLength; i++) {
             int charData = this.data.charAt(i);
             int charResult = charData;
             if (START_CHAR <= charData && charData <= END_CHAR) {
@@ -36,9 +37,8 @@ public class Shifter {
     }
 
     private void decrypt() {
-        int length = this.data.length();
-        char[] resultArray = new char[length];
-        for (int i = 0; i < length; i++) {
+        char[] resultArray = new char[this.dataLength];
+        for (int i = 0; i < this.dataLength; i++) {
             int charData = this.data.charAt(i);
             int charResult = charData;
             if (START_CHAR <= charData && charData <= END_CHAR) {
