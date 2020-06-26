@@ -17,19 +17,13 @@ public class Shifter {
         this.dataLength = data.length();
     }
 
-    // Reminder for myself: % in java is different with python
-    // in java it means reminder, not modulo!
-    private static int mod(int n, int m) {
-        return (((n % m) + m) % m);
-    }
-
     private void encrypt() {
         char[] resultArray = new char[this.dataLength];
         for (int i = 0; i < this.dataLength; i++) {
             int charData = this.data.charAt(i);
             int charResult = charData;
             if (START_CHAR <= charData && charData <= END_CHAR) {
-                charResult = (mod(((charData - START_CHAR) + this.key), RANGE) + START_CHAR);
+                charResult = (Misc.mod(((charData - START_CHAR) + this.key), RANGE) + START_CHAR);
             }
             resultArray[i] = (char) charResult;
         }
@@ -42,7 +36,7 @@ public class Shifter {
             int charData = this.data.charAt(i);
             int charResult = charData;
             if (START_CHAR <= charData && charData <= END_CHAR) {
-                charResult = mod(((charData - START_CHAR) - this.key), RANGE) + START_CHAR;
+                charResult = Misc.mod(((charData - START_CHAR) - this.key), RANGE) + START_CHAR;
             }
             resultArray[i] = (char) charResult;
         }
