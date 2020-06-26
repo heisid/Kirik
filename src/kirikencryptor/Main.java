@@ -1,15 +1,12 @@
 package kirikencryptor;
 
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
-    private static final char START_CHAR = ' ';
-    private static final char END_CHAR = '~';
-    private static final char RANGE = (char) (END_CHAR - START_CHAR + 1);
 
     public static void main(String[] args) {
         String mode = "enc";
@@ -52,13 +49,10 @@ public class Main {
             }
         }
 
-        String result = "";
+        String result;
 
-        if (mode.equals("enc")) {
-            result = encrypt(data.toString(), key);
-        } else if (mode.equals("dec")) {
-            result = decrypt(data.toString(), key);
-        }
+        Shifter shifter = new Shifter(mode, key, data.toString());
+        result = shifter.getResult();
 
         if (outFileName.isEmpty()) {
             System.out.println(result);
@@ -79,31 +73,4 @@ public class Main {
         }
     }
 
-    private static String encrypt(String clearText, char key) {
-        int length = clearText.length();
-        char[] cipherArray = new char[length];
-        for (int i = 0; i < length; i++) {
-            char charClear = clearText.charAt(i);
-            char charCipher = charClear;
-            if (START_CHAR <= charClear && charClear <= END_CHAR) {
-                charCipher = (char) ((((charClear - START_CHAR) + key) % RANGE) + START_CHAR);
-            }
-            cipherArray[i] = charCipher;
-        }
-        return new String(cipherArray);
-    }
-
-    private static String decrypt(String cipherText, char key) {
-        int length = cipherText.length();
-        char[] clearArray = new char[length];
-        for (int i = 0; i < length; i++) {
-            char charCipher = cipherText.charAt(i);
-            char charClear = charCipher;
-            if (START_CHAR <= charCipher && charCipher <= END_CHAR) {
-                charClear = (char) ((((charCipher - START_CHAR) - key) % RANGE) + START_CHAR);
-            }
-            clearArray[i] = charClear;
-        }
-        return new String(clearArray);
-    }
 }
